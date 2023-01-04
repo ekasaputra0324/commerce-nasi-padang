@@ -1,0 +1,8 @@
+POST http://localhost/8000/user
+Content-Type: application/json
+
+{
+    "name": "eka",
+    "email": "eka@gmail.com",
+    "password": "ekasap"
+}
