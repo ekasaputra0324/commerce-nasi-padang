@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyPaser = require('body-parser');
 const path = require('path');
-const { hashpass } = require('./model/model');
+const { hashpass } = require('./model/users');
 const app = express();
 const bcryp = require('bcrypt');
 const Swal = require('sweetalert');
@@ -16,24 +16,34 @@ app.set('view engine', 'ejs');
 app.use(cors());
 app.use(bodyPaser.urlencoded({ extended: false }))
 
-const Toast = Swal2.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal2.stopTimer)
-      toast.addEventListener('mouseleave', Swal2.resumeTimer)
-    }
-})
-  
-
-
+// login
 app.get('/' , (req, res) => {
     res.render('index');    
 });
 
+app.post('/login', (req, res) => {
+    const {name, password } = req.body
+    client.query(`select *  from users WHERE  (name = '${name}')` , (err, result) =>{
+        if(!err){
+            res.status(200).json({
+                status: true,
+                message: result
+            }); 
+        }else{
+            res.status(500).json({
+                status: false,
+                message: err
+            });
+        }
+    });
+});
+
+// forgot
+app.get('/forgot', (req, res) => {
+    res.render('forgot');
+});
+
+// register
 app.get('/regist', (req, res) => {
     res.render('register');
 });

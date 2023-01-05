@@ -4,6 +4,14 @@ const client = require('./connection');
 const bcryp = require('bcrypt');
 const cors = require('cors');
 
+function register(data) {
+    
+}
 
- module.exports = {};
+function select(data) {
+    
+}
+
+
+module.exports = {};
 
