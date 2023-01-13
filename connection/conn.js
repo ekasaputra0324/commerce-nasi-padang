@@ -15,4 +15,4 @@ const conn =  client.connect(err => {
     }
 });
 
-module.exports = client, conn;
+module.exports = client;
