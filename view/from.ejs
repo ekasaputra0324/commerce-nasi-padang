@@ -1,0 +1,114 @@
+<%- include('admin/head') %> 
+    <div id="app">
+       <%- include('admin/sidebar') %> 
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Form Product</h3>
+                            <p class="text-subtitle text-muted">Form tambah dan update product</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Form Product</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Basic Horizontal form layout section start -->
+                <section id="basic-horizontal-layouts">
+                    <div class="row match-height">
+                        <div class="col-md-6 col-12">
+                            <% if(msg == 1) {%> 
+                            <div class="alert alert-success alert-dismissible show fade">
+                                Product Berhasil Ditambahkan
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <% }else if(msg == 0){ %>
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    Product gagal Ditambahkan
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                                <% } %>  
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Form Tambah Product</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <form class="form form-horizontal" action="/product/add" method="post" enctype="multipart/form-data">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Nama Product</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="text" id="nama_product" class="form-control"
+                                                            name="name" placeholder="Nama Product">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Harga</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="text" id="harga" class="form-control"
+                                                            name="harga" placeholder="Harga">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Kategori</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <select class="form-select" aria-label="Default select example" name="kategori">
+                                                            <option >-- pilih kategori --</option>
+                                                            <option value="makanan">Makanan</option>
+                                                            <option value="minuman">Minuman</option>
+                                                          </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Gambar</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="file" class="form-control" id="img" name="img" /> 
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Description</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                                                    </div>
+                                                    
+                                                   <div class="col-sm-12 d-flex justify-content-end">
+                                                        <button type="submit"
+                                                            class="btn btn-primary me-1 mb-1">Submit</button>
+                                                        <button type="reset"
+                                                            class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- // Basic Horizontal form layout section end -->
+
+                <!-- Basic Vertical form layout section start -->
+                <!-- // Basic Vertical form layout section end -->
+
+
+                <!-- // Basic multiple Column Form section start -->
+                <!-- // Basic multiple Column Form section end -->
+            </div>
+<%- include('admin/footer') %> 

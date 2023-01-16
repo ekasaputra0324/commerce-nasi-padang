@@ -129,7 +129,7 @@ ol {
 	right: 0;
 	height: 4px;
 	width: 80px;
-	background: #7fad39;
+	background: #dbae33;
 	content: "";
 	margin: 0 auto;
 }
@@ -840,7 +840,7 @@ ol {
 	bottom: -2px;
 	width: 100%;
 	height: 2px;
-	background: #7fad39;
+	background: #dbae33;
 	content: "";
 	opacity: 0;
 }
@@ -888,8 +888,8 @@ ol {
 }
 
 .featured__item__pic__hover li:hover a {
-	background: #7fad39;
-	border-color: #7fad39;
+	background: #dbae33;
+	border-color: #dbae33;
 }
 
 .featured__item__pic__hover li:hover a i {
@@ -2720,7 +2720,7 @@ ol {
 }
 
 .footer__widget .footer__widget__social a:hover {
-	background: #7fad39;
+	background: #dbae33;
 	color: #ffffff;
 	border-color: #ffffff;
 }

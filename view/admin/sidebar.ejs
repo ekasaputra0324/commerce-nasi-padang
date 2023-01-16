@@ -13,155 +13,62 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
+                <% if(title == 'Padang Juara | Dashboard') {%> 
                 <li class="sidebar-item active ">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="/home/admin" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
-                        <span>Components</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="component-alert.html">Alert</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-badge.html">Badge</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-breadcrumb.html">Breadcrumb</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-button.html">Button</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-card.html">Card</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-carousel.html">Carousel</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-dropdown.html">Dropdown</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-list-group.html">List Group</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-modal.html">Modal</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-navs.html">Navs</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-pagination.html">Pagination</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-progress.html">Progress</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-spinner.html">Spinner</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="component-tooltip.html">Tooltip</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-collection-fill"></i>
-                        <span>Extra Components</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="extra-component-avatar.html">Avatar</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-toastify.html">Toastify</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-rating.html">Rating</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="extra-component-divider.html">Divider</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-grid-1x2-fill"></i>
-                        <span>Layouts</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="layout-default.html">Default Layout</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-vertical-1-column.html">1 Column</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-vertical-navbar.html">Vertical with Navbar</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="layout-horizontal.html">Horizontal Menu</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item  ">
-                    <a href="application-chat.html" class='sidebar-link'>
-                        <i class="bi bi-chat-dots-fill"></i>
-                        <span>Chat Application</span>
+                <% }else{ %>
+                    <li class="sidebar-item">
+                        <a href="/home/admin" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <% } %>  
+                <% if(title == 'Padang Juara | Transaction') {%> 
+                <li class="sidebar-item active">
+                    <a href="/transaction" class='sidebar-link'>
+                        <i class="bi bi-receipt-cutoff"></i>
+                        <span>Transaction</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item  ">
-                    <a href="application-gallery.html" class='sidebar-link'>
-                        <i class="bi bi-image-fill"></i>
-                        <span>Photo Gallery</span>
-                    </a>
-                </li>
-                <li class="sidebar-item  ">
-                    <a href="application-checkout.html" class='sidebar-link'>
+                <% }else{ %>
+                    <li class="sidebar-item">
+                        <a href="/transaction" class='sidebar-link'>
+                            <i class="bi bi-receipt-cutoff"></i>
+                            <span>Transaction</span>
+                        </a>
+                    </li>
+                    <% } %>  
+                <% if(title == 'Padang Juara | Product') {%> 
+                <li class="sidebar-item active">
+                    <a href="/product" class='sidebar-link'>
                         <i class="bi bi-basket-fill"></i>
-                        <span>Checkout Page</span>
+                        <span>Product</span>
                     </a>
                 </li>
+                <% }else{ %>
+                    <li class="sidebar-item  ">
+                        <a href="/product" class='sidebar-link'>
+                            <i class="bi bi-basket-fill"></i>
+                            <span>Product</span>
+                        </a>
+                    </li>
+                    <% } %>  
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-badge-fill"></i>
-                        <span>Authentication</span>
+                        <span>Users</span>
                     </a>
                     <ul class="submenu ">
                         <li class="submenu-item ">
-                            <a href="auth-login.html">Login</a>
+                            <a href="layout-default.html">Costumers</a>
                         </li>
                         <li class="submenu-item ">
-                            <a href="auth-register.html">Register</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="auth-forgot-password.html">Forgot Password</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-x-octagon-fill"></i>
-                        <span>Errors</span>
-                    </a>
-                    <ul class="submenu ">
-                        <li class="submenu-item ">
-                            <a href="error-403.html">403</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="error-404.html">404</a>
-                        </li>
-                        <li class="submenu-item ">
-                            <a href="error-500.html">500</a>
+                            <a href="layout-vertical-1-column.html">Role</a>
                         </li>
                     </ul>
                 </li>

@@ -6,6 +6,7 @@
     margin-bottom: 0
 }
 
+
 .alert button.close {
     padding: .75rem;
     line-height: .75
@@ -942,7 +943,7 @@
 }
 
 .sidebar-wrapper .sidebar-header img {
-    height: 1.9rem
+    height: 2.1rem
 }
 
 .sidebar-wrapper .sidebar-toggler.x {
@@ -1008,7 +1009,7 @@
 }
 
 .sidebar-wrapper .menu .sidebar-item.active .sidebar-link {
-    background-color: #dbae33 
+    background-color: #dbae33;
 }
 
 .sidebar-wrapper .menu .sidebar-item.active .sidebar-link span {
