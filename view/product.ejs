@@ -27,6 +27,13 @@
                 </div>
                 <section class="section">
                     <div class="card">
+                        <% if(msg == 1) {%> 
+                            <div class="alert alert-success alert-dismissible show fade">
+                                Product Berhasil Hapus
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <% } %>
                         <div class="card-header">
                            <a href="/from"><button class="btn btn" style="background-color: #dbae33; color: white; font-weight: bold;">Tambah Product</button></a>
                         </div>
@@ -37,23 +44,22 @@
                           <div class="modal-dialog modal-dialog-scrollable" role="document">
                               <div class="modal-content">
                                   <div class="modal-header">
-                                      <h5 class="modal-title" id="myModalLabel1">Deskription and Image </h5>
+                                      <h5 class="modal-title" id="myModalLabel1">Foto dan Deskripsi Product </h5>
                                       <button type="button" class="close rounded-pill"
                                           data-bs-dismiss="modal" aria-label="Close">
                                           <i data-feather="x"></i>
                                       </button>
                                   </div>
                                   <div class="modal-body">
-                                 <span style="font-weight: bold;">Image :</span>  <img src="/images/1673811298187.jpg" alt="" srcset="" width="20%"> <br>   
-                                 <span style="font-weight: bold;">Description :</span><p id="paragraf"></p>
+                                  <img id="image_product"  src="" alt="" srcset="" width="60%" style="margin-left: 15%;"> <br>   
+                                 <br>
+                                <div class="col-md-8 form-group" style="margin-left: 15%;">
+                                    <textarea class="form-control" id="description" rows="3" name="description" disabled></textarea>
+                                </div>
                                   </div>
                                   <div class="modal-footer">
-                                      <button type="button" class="btn" data-bs-dismiss="modal">
-                                          <i class="bx bx-x d-block d-sm-none"></i>
-                                          <span class="d-none d-sm-block">Close</span>
-                                      </button>
-                                      <button type="button" class="btn btn-primary ml-1"
-                                          data-bs-dismiss="modal">
+                                      <button type="button" class="btn btn ml-1"
+                                          data-bs-dismiss="modal" style="background-color: #dbae33; color: white; ">
                                           <i class="bx bx-check d-block d-sm-none"></i>
                                           <span class="d-none d-sm-block">Accept</span>
                                       </button>
@@ -69,6 +75,7 @@
                                         <th>No</th>
                                         <th>Nama Product</th>
                                         <th>Harga</th>
+                                        <th>Kategori</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -79,17 +86,22 @@
                                         <td><%= no %></td>
                                         <td><%= data[i].nama_product %> </td>
                                         <td><%= data[i].harga_product %> </td>
+                                        <td><%= data[i].kategori %> </td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-danger"><i onclick="deleted()" class="fa-solid fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-danger"><i onclick="deleted('<%=  data[i].id %>')" class="fa-solid fa-trash"></i></button>
                                             <button type="button" class="btn btn-outline-warning"  data-bs-toggle="modal"
                                             data-bs-target="#default"><i class="fa-solid fa-eye" onclick="detail('<%=  data[i].id %>')"></i></button>
-                                            <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></button>
+                                            </i><a href="/product/form/update/<%=  data[i].id %> %> " class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
                                         </td>
                                     </tr>
                                     <% no++; %> 
                                     <% } }else{ %>
                                         <tr>
-                                            <td>No data ever existed.</td>
+                                            <td>Tidak ada data</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                           </tr>
                                     <% } %>
                              </table>
