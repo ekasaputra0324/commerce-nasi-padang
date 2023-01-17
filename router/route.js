@@ -12,6 +12,7 @@ const path = require('path');
 
 // app.use(fileupload());
 const multer = require('multer');
+const { urlencoded } = require('express');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './public/images')
@@ -26,29 +27,36 @@ const upload = multer({storage: storage});
 
 
 route.get('/resgiter', (req,res) => { 
-    const register = '';
+    const register = req.query.register;
     res.render('register', {title: 'SELES-APP | Register', message: register})
 });
 route.post('/resgiter' , (req, res) =>{
-    const {name , email, password} = req.body;
+    const {name , email, password, password2} = req.body;
     console.log(
         name,
         email,
-        password
+        password,
+        password2
     );
-    
+    if (password != password2) {
+        const register =  encodeURIComponent('dontMacht');
+        res.redirect('/resgiter/?register=' + register)       
+    }
     client.query(`SELECT * FROM users WHERE email = '${email}'`, (err, result) => {
-        if (err) { throw err }
+        if (err) {
+            console.log(err);
+        }
         if (result.rowCount > 0) {
-            const register = 'failed';
-            res.render('register', {title: 'SELES-APP | Register', message: register})
+            const register =  encodeURIComponent('failed');
+            res.redirect('/resgiter/?register='+register)   
         }else{
             let hash = bcrypt.hashSync(password, 10);
             console.log(hash);
             client.query(`INSERT INTO users(name , email, password) VALUES ('${name}','${email}','${hash}') ` , (err, result) => {
             if (!err) {
-                const register = 'success'
-                res.render("register", {title: 'SELES-APP | Register', message: register})
+                console.log(result.rows[0]);
+                const register =  encodeURIComponent('success');
+                res.redirect('/resgiter/?register='+ register)   
             }else{
                 res.redirect('/resgiter')
             }
@@ -153,11 +161,29 @@ route.get('/product', (req, res) => {
                     res.redirect('/')
                 }
                 if (role == 'admin') {
-                    res.render('product', {title: 'Padang Juara | Product'});
+                    client.query(`SELECT * FROM product` , (err, result) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        if (!err) {
+                            const count = result.rowCount;
+                            console.log(result.rows);
+                            res.render('product', {title: 'Padang Juara | Product' , data: result.rows, count: count});
+                            
+                        }
+                    });
                 }
             } 
         });
     }
+});
+
+route.get('/product/getdata/:id', (req, res) => {
+    const id = req.params.id;
+    client.query(`SELECT * FROM product WHERE id = ${id}`, (err, result) => {
+        if (err) { throw err }
+        res.send(result.rows[0])
+    });
 });
 
 route.post('/product/add' , upload.single('img'), (req, res) => {    
@@ -167,7 +193,7 @@ route.post('/product/add' , upload.single('img'), (req, res) => {
         client.query(`INSERT INTO product (nama_product, harga_product, description, img,kategori) 
         VALUES('${name}', '${harga}', '${description}', '${imageName}','${kategori}')`, (err, result) => {
             if(err){
-                const msg = encodeURIComponent(1);
+                const msg = encodeURIComponent(0);
                 res.redirect('/from/?success=' + msg)
             };
             if (!err) {
@@ -179,7 +205,6 @@ route.post('/product/add' , upload.single('img'), (req, res) => {
 
 route.get('/from', (req, res) => {
     const msg = req.query.success;
-    console.log(msg);
     res.render('from', {title: 'Padang Juara | Form' , msg: msg});
 });
 

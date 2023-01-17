@@ -1,68 +1,69 @@
-<%- include('partials/head') %>
-<section class="h-100" style="margin-top: 5%;">
-    <% if(message == 'failed'){ %> 
-    <div class="alert alert-danger" role="alert" style="width: 22%; margin-left: 39%;">
-        Email Already Exits    
-    </div>
-      <% } %> 
-      <% if(message == 'success'){ %> 
-        <div class="alert alert-success" role="alert" style="width: 22%; margin-left: 39%;">
-            I was successfully registered    
-        </div>
-          <% } %> 
-    <div class="container h-100">
-        <div class="row justify-content-sm-center h-100">
-            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-                <div class="text-center my-5">
-                    <!-- <img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="logo" width="100"> -->
-                </div>
-                <div class="card shadow-lg">
-                    <div class="card-body p-5">
-                        <h1 class="fs-4 card-title fw-bold mb-4">Register</h1>
-                        <form method="POST"  action="/resgiter">
-                            <div class="mb-3">
-                                <label class="mb-2 text-muted" for="name">Name</label>
-                                <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-                                <div class="invalid-feedback">
-                                    Name is required	
+<%- include('admin/head') %>
+<!-- <section class="h-100" style="margin-top: 5%;"> -->
+          <div id="auth">
+          
+            <div class="row h-100">
+                <div class="col-lg-5 col-12">
+                    <div id="auth-left">
+                        
+                        <h1 class="auth-title" style="color:  #dbae33;">Sign Up</h1>
+                        <p class="auth-subtitle mb-5">Masukana data anda untuk mendaftar account di website Padang Juara.</p>
+                        <% if(message == 'failed'){ %> 
+                            <div class="alert alert-danger" role="alert">
+                                Email Already Exits    
+                            </div>
+                              <% } %> 
+                              <% if(message == 'success'){ %> 
+                                <div class="alert alert-success" role="alert" >
+                                    I was successfully registered    
+                                </div>
+                                  <% } %> 
+                                  <% if(message == 'dontMacht') {%>
+                                    <div class="alert alert-danger" role="alert">
+                                        Password dont Macth    
+                                    </div>
+                                    <% } %>  
+                        <form action="/resgiter" method="post">
+                            <div class="form-group position-relative has-icon-left mb-4">
+                                <input type="text" class="form-control form-control-xl" placeholder="Email" name="email">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-envelope"></i>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="mb-2 text-muted" for="email">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="email" value="" required>
-                                <div class="invalid-feedback">
-                                    Email is invalid
+                            <div class="form-group position-relative has-icon-left mb-4">
+                                <input type="text" class="form-control form-control-xl" placeholder="Username" name="name">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-person"></i>
                                 </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label class="mb-2 text-muted" for="password">Password</label>
-                                <input id="password" type="password" class="form-control" name="password" required>
-                                <div class="invalid-feedback">
-                                    Password is required
+                            <div class="form-group position-relative has-icon-left mb-4">
+                                <input type="password" name="password" class="form-control form-control-xl" placeholder="Password">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-shield-lock"></i>
                                 </div>
                             </div>
-
-                            <p class="form-text text-muted mb-3">
-                                By registering you agree with our terms and condition.
-                            </p>
-
-                            <div class="align-items-center d-flex">
-                                <button type="submit" class="btn btn-primary ms-auto">
-                                    Register	
-                                </button>
+                            <div class="form-group position-relative has-icon-left mb-4">
+                                <input type="password" class="form-control form-control-xl" name="password2"  placeholder="Confirm Password">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-shield-lock"></i>
+                                </div>
                             </div>
+                            <button class="btn btn btn-block btn-lg shadow-lg mt-5" style="background-color:  #dbae33; color: white;">Sign Up</button>
                         </form>
-                    </div>
-                    <div class="card-footer py-3 border-0">
-                        <div class="text-center">
-                            Already have an account? <a href="/" class="text-dark">Login</a>
+                        <div class="text-center mt-5 text-lg fs-4">
+                            <p class='text-gray-600'>Already have an account? <a href="/login"
+                                    class="font-bold" style="color:  #dbae33;">Log
+                                    in</a>.</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-7 d-none d-lg-block">
+                    <div id="auth-right">
+    
+                    </div>
+                </div>
             </div>
+    
         </div>
-    </div>
-</section>
-<%- include('partials/footer') %>
+<!-- </section> -->
+<%- include('admin/footer') %>
