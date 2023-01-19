@@ -38,7 +38,7 @@
                         </div>
                         <div class="modal-body">
                             <form action="/product/update/image" method="post" enctype="multipart/form-data">
-                                <input type="hidden"  name="id"  value="<%= data.id %>">
+                                <input type="hidden" value="<%= data.id %>" name="id">
                                 <input type="file" class="form-control" id="img" name="img"/>
                             </div>
                             <div class="modal-footer">
@@ -83,40 +83,35 @@
                                                     </div>
                                                     <div class="col-md-8 form-group">
                                                         <input type="text" id="nama_product" class="form-control"
-                                                            name="name" placeholder="Nama Product" value="<%= data.nama_product %> ">
+                                                            name="name" placeholder="Nama Product" value="<%= data.nama_product %> " required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Harga</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
                                                         <input type="text" id="harga" class="form-control"
-                                                            name="harga" placeholder="Harga" value="<%= data.harga_product %>">
+                                                            name="harga" placeholder="Harga" value="<%= data.harga_product %>" required>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Kategori</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
-                                                        <select class="form-select" name="kategori">
-                                                            <% if( data.kategori = "makanan") { %> 
-                                                            <option value="makanan" selected>Makanan</option>
-                                                            <% } %>
-                                                            <% if( data.kategori = "minuman") { %>
-                                                            <option value="minuman" selected>Minuman</option>
-                                                            <% } %>
+                                                        <select class="form-select" name="kategori" required>
+                                                            <option value="makanan">Makanan</option>
+                                                            <option value="minuman" >Minuman</option>
                                                           </select>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label>Description</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description"><%= data.description %></textarea>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required name="description"><%= data.description %></textarea>
                                                     </div>
                                                     
                                                    <div class="col-sm-12 d-flex justify-content-end mt-3">
                                                     <a href="/product" class="btn btn-danger me-1 mb-1">Kembali</a>      
                                                     <button type="button" class="btn btn-light-secondary me-1 mb-1"  data-bs-toggle="modal"
-                                                    data-bs-target="#default">Upadate Image</button> 
-                                                <!-- </div> -->
+                                                    data-bs-target="#default" >Upadate Image</button>
                                                         <button type="submit"
                                                             class="btn btn me-1 mb-1" style="background-color: #dbae33; color: white; ">Submit</button> 
                                                     

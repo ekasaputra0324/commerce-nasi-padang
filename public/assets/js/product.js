@@ -4,7 +4,7 @@
 const deleted = (id) => {
     swal({
         title: "Apakah anda yakin?",
-        text: "data product ini akan di hapus secara permanen!",
+        text: "data product ini akan di hapus secara permanen dengan data transaksi!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -15,7 +15,20 @@ const deleted = (id) => {
         }
       });
 }
-
+const deletedUser = (id) => {
+  swal({
+      title: "Apakah anda yakin?",
+      text: "data custumers ini akan di hapus secara permanen!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+         window.location.href = '/custumer/delete/'.concat(id)
+      }
+    });
+}
 const detail = (params) => {
   $.ajax({
     type: "get",

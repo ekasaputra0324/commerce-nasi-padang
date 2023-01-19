@@ -1,3 +1,94 @@
-<script src="../public/login.js"></script>
+<footer class="footer spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__about__logo">
+                        <a href="./index.html"><img src="/assets-users/img/logo.png" alt=""></a>
+                    </div>
+                    <ul>
+                        <li>Address: Jalan Kebon bibit ,Taman sari</li>
+                        <li>Phone: +65812-3502-8568</li>
+                        <li>Email: padangjuara@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                <div class="footer__widget">
+                    <h6>Menu</h6>
+                    <ul>
+                        <li><a href="#">Nasi Ayam</a></li>
+                        <li><a href="#">Nasi Padang Ikan</a></li>
+                        <li><a href="#">Nasi Padang Campur</a></li>
+                        <li><a href="#">Nasi Padang Juara</a></li>
+                        <li><a href="#">Nasi Padang Sepecial</a></li>
+                        <li><a href="#">Ayam Padang</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="footer__widget">
+                    <h6>Follow Account Sosmed Kami</h6>
+                    <p>biar anda tidak ketinggalan info diskon dari kami guysss</p>
+                    <!-- <form action="#">
+                        <input type="text" placeholder="Enter your mail">
+                        <button type="submit" class="site-btn">Subscribe</button>
+                    </form> -->
+                    <div class="footer__widget__social">
+                        <a href="padang_kebonbibit"><i class="fa fa-facebook"></i></a>
+                        <a href="@masakanpadang"><i class="fa fa-instagram"></i></a>
+                        <a href="padangjuara"><i class="fa fa-twitter"></i></a>
+                        <!-- <a href="#"><i class="fa fa-pinterest"></i></a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="/assets-users/js/jquery-3.3.1.min.js"></script>
+<script src="/assets-users/js/bootstrap.min.js"></script>
+<script src="/assets-users/js/jquery.nice-select.min.js"></script>
+<script src="/assets-users/js/jquery-ui.min.js"></script>
+<script src="/assets-users/js/jquery.slicknav.js"></script>
+<script src="/assets-users/js/mixitup.min.js"></script>
+<script src="/assets-users/js/owl.carousel.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/assets-users/js/main.js"></script>
+<script>
+    const getID = (id) =>{
+        $.ajax({
+            type: "GET",
+            url: "/product/getdata/".concat(id),
+            dataType: "json",
+            success: function (res) {
+                 $('#id').val(res.id);
+                 $('#harga').val(res.harga_product)
+            }
+        });
+    }
+    const confirm = () => {
+        swal({
+    //   title: "Info",
+      text: "pastikan data anda telah sesuai!",
+      icon: "info",
+      buttons: true,
+      successMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+         window.location.href = '/cart/update'
+      }
+    });
+    }
+</script>
 </body>
+
 </html>

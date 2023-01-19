@@ -1,0 +1,182 @@
+<%- include('partials/head') %> 
+    <!-- Header Section End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero hero-normal">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <!-- <div class="hero__categories">
+                        <div class="hero__categories__all">
+                            <i class="fa fa-bars"></i>
+                            <span>All departments</span>
+                        </div>
+                        <ul>
+                            <li><a href="#">Fresh Meat</a></li>
+                            <li><a href="#">Vegetables</a></li>
+                            <li><a href="#">Fruit & Nut Gifts</a></li>
+                            <li><a href="#">Fresh Berries</a></li>
+                            <li><a href="#">Ocean Foods</a></li>
+                            <li><a href="#">Butter & Eggs</a></li>
+                            <li><a href="#">Fastfood</a></li>
+                            <li><a href="#">Fresh Onion</a></li>
+                            <li><a href="#">Papayaya & Crisps</a></li>
+                            <li><a href="#">Oatmeal</a></li>
+                            <li><a href="#">Fresh Bananas</a></li>
+                        </ul>
+                    </div> -->
+                </div>
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <!-- <div class="hero__search__form">
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div> -->
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    
+    <!-- Breadcrumb Section End -->
+
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(data.length){ for(var i = 0; i< data.length; i++) {%> 
+                                <tr>
+                                    <td class="shoping__cart__item">
+                                        <img src="/images/<%= data[i].img %> " alt="" width="20%">
+                                        <h5><%= data[i].nama_product %></h5>
+                                    </td>
+                                    <%   var bilangan = data[i].harga_product ;
+	
+                                    var	number_string = bilangan.toString(),
+                                        sisa 	= number_string.length % 3,
+                                        rupiah 	= number_string.substr(0, sisa),
+                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                            
+                                    if (ribuan) {
+                                        separator = sisa ? '.' : '';
+                                        rupiah += separator + ribuan.join('.');
+                                    } %> 
+                                    <td class="shoping__cart__price">
+                                       Rp.<%= rupiah %> 
+                                    </td>
+                                    <td class="shoping__cart__quantity">
+                                        <%= data[i].jumlah %>
+                                    </td>
+                                    <%   var  bilangan = data[i].total ; 
+                                        if (bilangan.toString() != null) {     
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                                total += separator + ribuan.join('.');
+                                        } 
+                                        }else{
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                          }      total += separator + ribuan.join('.');
+                                        }
+                                    %> 
+                                    <td class="shoping__cart__total">
+                                       Rp.<%= total %>
+                                    </td>
+                                    <td class="shoping__cart__item__close">
+                                        <a href="/deleted/cart/<%= data[i].id%>"> <span class="icon_close"></span></a>
+                                    </td>
+                                </tr>
+                                <% } } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <!-- <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                            Upadate Cart</a> -->
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                  
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__checkout">
+                                     <%   
+                                        var bilangan = subs; 
+                                            if (bilangan === null){
+                                                bilangan = 0         
+                                                    var	number_string = bilangan.toString(),
+                                                        sisa 	= number_string.length % 3,
+                                                        total   = number_string.substr(0, sisa),
+                                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                            
+                                                    if (ribuan) {
+                                                        separator = sisa ? '.' : '';
+                                                        total += separator + ribuan.join('.');
+                                                 
+                                                }
+                                            }else{
+                                                bilangan = subs         
+                                                    var	number_string = bilangan.toString(),
+                                                        sisa 	= number_string.length % 3,
+                                                        total   = number_string.substr(0, sisa),
+                                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                            
+                                                    if (ribuan) {
+                                                        separator = sisa ? '.' : '';
+                                                        total += separator + ribuan.join('.');
+                                                 
+                                                }
+                                            }
+                                        
+                                    %>    
+                        <h5>Cart Total</h5>
+                        <ul>
+                            <li>Subtotal<span> Rp.<%= total %></span></li>
+                            <li>Total<span> Rp.<%= total     %></span></li>
+                        </ul>
+                        <span onclick="confirm()" class="primary-btn">PROCEED TO CHECKOUT</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+   <%- include('partials/footer') %> 

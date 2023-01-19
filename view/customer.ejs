@@ -1,0 +1,78 @@
+<%- include('admin/head') %> 
+    <div id="app">
+       <%- include('admin/sidebar') %> 
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Custumer</h3>
+                            <p class="text-subtitle text-muted">Daftar data Custumer</p>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Custumer</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <% if(msg == 1) {%> 
+                            <div class="alert alert-success alert-dismissible show fade">
+                                Product Berhasil Hapus
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            <% } %>
+                        <div class="card-header">
+                              <a href="/custumer/form/add"><button class="btn btn" style="background-color: #dbae33; color: white; font-weight: bold;">Tambah Customer </button></a>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% var no = 1; %>
+                                    <% if(data.length){ for(var i = 0; i< data.length; i++) {%> 
+                                    <tr>
+                                        <td><%= no %> </td>
+                                        <td><%= data[i].name %> </td>
+                                        <td><%= data[i].email %> </td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-danger"><i onclick="deletedUser('<%= data[i].id %>')" class="fa-solid fa-trash"></i></button>
+                                            </i><a href="/customer/form/update/<%= data[i].id %> " class="btn btn-outline-primary"><i class="fa-solid fa-pen"></i></a>
+                                        </td>
+                                    </tr>
+                                    <% no++; %> 
+                                    <% } }else{ %>
+                                        <tr>
+                                            <td>Tidak ada data</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                    <% } %>
+                             </table>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+ <%- include('admin/footer') %> 

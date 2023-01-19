@@ -11,14 +11,14 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Form Product</h3>
-                            <p class="text-subtitle text-muted">Form tambah dan update product</p>
+                            <h3>Form Customer</h3>
+                            <p class="text-subtitle text-muted">Form tambah dan update Customer</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Form Product</li>
+                                    <li class="breadcrumb-item"><a href="index.html">Users</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Form Customer</li>
                                 </ol>
                             </nav>
                         </div>
@@ -30,68 +30,60 @@
                         <div class="col-md-6 col-12">
                             <% if(msg == 1) {%> 
                             <div class="alert alert-success alert-dismissible show fade">
-                                Product Berhasil Ditambahkan
+                                Custumer Berhasil Ditambahkan
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                            <% }else if(msg == 0){ %>
+                            <% } %>
+                            <% if(msg == 0) {%> 
                                 <div class="alert alert-danger alert-dismissible show fade">
-                                    Product gagal Ditambahkan
+                                    Custumer gagal Ditambahkan
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
-                                <% } %>  
+                                <% } %>
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Form Tambah Product</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-horizontal" action="/product/add" method="post" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="/custemer/add" method="post">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label>Nama Product</label>
+                                                        <label>Username</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
                                                         <input type="text" id="nama_product" class="form-control"
-                                                            name="name" placeholder="Nama Product" required>
+                                                            name="name" placeholder="Username">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Harga</label>
+                                                        <label>Email</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
-                                                        <input type="text" id="harga" class="form-control"
-                                                            name="harga" placeholder="Harga" required>
+                                                        <input type="text" id="email" class="form-control"
+                                                            name="email" placeholder="Email">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Kategori</label>
+                                                        <label>Password</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
-                                                        <select class="form-select" aria-label="Default select example" name="kategori" required>
-                                                            <option >-- pilih kategori --</option>
-                                                            <option value="makanan">Makanan</option>
-                                                            <option value="minuman">Minuman</option>
-                                                          </select>
+                                                        <input type="password" id="email" class="form-control"
+                                                            name="password" placeholder="Password">
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label>Gambar</label>
+                                                        <label>Confirm Password</label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
-                                                        <input type="file" class="form-control" id="img" name="img"  required/> 
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <label>Description</label>
-                                                    </div>
-                                                    <div class="col-md-8 form-group">
-                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="description" required></textarea>
-                                                    </div>
-                                                    
+                                                        <input type="password" id="email" class="form-control"
+                                                            name="password2" placeholder="Confirm Password">
+                                                    </div> 
                                                    <div class="col-sm-12 d-flex justify-content-end">
                                                         <button type="submit"
                                                             class="btn btn me-1 mb-1" style="background-color: #dbae33; color: white; ">Submit</button>
                                                         <!-- <button type="reset" -->
-                                                       <a href="/product" class="btn btn-danger me-1 mb-1">  Kembali  </a>
+                                                       <a href="/custumer" class="btn btn-danger me-1 mb-1">Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>
