@@ -38,7 +38,7 @@ const upload = multer({
 route.get('/resgiter', (req, res) => {
     const register = req.query.register;
     res.render('register', {
-        title: 'SELES-APP | Register',
+        title: 'Padang Juara | Register',
         message: register
     })
 });
@@ -92,7 +92,7 @@ route.get('/login', (req, res) => {
     }
     const login = []
     res.render('login', {
-        title: 'SELES-APP | Login',
+        title: 'Padang Juara | Login',
         message: login
     });
 });
@@ -119,7 +119,7 @@ route.post('/auth', (req, res) => {
             req.session.destroy();
             const login = 'failed'
             res.render("login", {
-                title: 'SELES-APP | Login',
+                title: 'Padang Juara | Login',
                 message: login
             });
         }
@@ -309,6 +309,13 @@ route.post('/transaction/add/user', (req, res) => {
         })
     }
 });
+
+// contact
+route.get('/contact', (req, res) => {
+    res.render('contact', {title: 'Padang Juara | Contact', email: req.session.email})
+});
+
+
 // product route
 route.get('/product', (req, res) => {
     if (req.session.email == null) {
