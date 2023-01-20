@@ -165,6 +165,11 @@ route.get('/home/admin', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
+        client.query(`SELECT * FROM users WHERE role_id = '${2}' FETCH FIRST 3 ROW ONLY`, (err, result) => {
+            const custumer = result.rows;
+            console.log(custumer);
+        client.query('SELECT * FROM product' ,(err, result) => {
+            const ProductCount = result.rowCount;
         client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
             if (!err) {
                 const role = result.rows[0].name;
@@ -176,11 +181,15 @@ route.get('/home/admin', (req, res) => {
                     res.render("admin", {
                         title: 'Padang Juara | Dashboard',
                         user: users,
+                        dataUsers: custumer,
+                        CountProduct: ProductCount,
                         email: req.session.email
                     })
                 }
             }
         });
+    });
+  });
     }
 });
 // transaction
