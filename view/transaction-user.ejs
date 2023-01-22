@@ -59,16 +59,18 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <!-- <th >Custumer</th> -->
                                     <th class="shoping__product">Products</th>
-                                    <th>Price</th>
                                     <th>Quantity</th>
+                                    <th>Price</th>
                                     <th>Total</th>
-                                    <th></th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <% if(data.length){ for(var i = 0; i< data.length; i++) {%> 
-                                <tr>
+                                    <tr>
+                                    <!-- <td class="shoping__cart__price"><%= data[i].name %> </td> -->
                                     <td class="shoping__cart__item">
                                         <img src="/images/<%= data[i].img %> " alt="" width="20%">
                                         <h5><%= data[i].nama_product %></h5>
@@ -113,10 +115,10 @@
                                         }
                                     %> 
                                     <td class="shoping__cart__total">
-                                       Rp.<%= total %>
+                                       Rp.<%= total %>  
                                     </td>
-                                    <td class="shoping__cart__item__close">
-                                        <a href="/deleted/cart/<%= data[i].id%>"> <span class="icon_close"></span></a>
+                                    <td class="shoping__cart__total">
+                                       <span class="text-warning">Proses</span>
                                     </td>
                                 </tr>
                                 <% } } %>
@@ -129,51 +131,15 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="/" class="primary-btn cart-btn">LANJUT PESAN</a>
-                        <a href="/transaction/user" class="primary-btn cart-btn cart-btn-right"></span>
-                            LIHAT TRANSACTION</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                   
                 </div>
                 <div class="col-lg-6">
-                    <div class="shoping__checkout">
-                                     <%   
-                                        var bilangan = subs; 
-                                            if (bilangan === null){
-                                                bilangan = 0         
-                                                    var	number_string = bilangan.toString(),
-                                                        sisa 	= number_string.length % 3,
-                                                        total   = number_string.substr(0, sisa),
-                                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-                                                            
-                                                    if (ribuan) {
-                                                        separator = sisa ? '.' : '';
-                                                        total += separator + ribuan.join('.');
-                                                 
-                                                }
-                                            }else{
-                                                bilangan = subs         
-                                                    var	number_string = bilangan.toString(),
-                                                        sisa 	= number_string.length % 3,
-                                                        total   = number_string.substr(0, sisa),
-                                                        ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-                                                            
-                                                    if (ribuan) {
-                                                        separator = sisa ? '.' : '';
-                                                        total += separator + ribuan.join('.');
-                                                 
-                                                }
-                                            }
-                                        
-                                    %>    
-                        <h5>Cart Total</h5>
-                        <ul>
-                            <li>Subtotal<span> Rp.<%= total %></span></li>
-                            <li>Total<span> Rp.<%= total     %></span></li>
-                        </ul>
-                        <span onclick="confirm()" class="primary-btn">PROCEED TO CHECKOUT</span>
-                    </div>
+                    <div style="margin-bottom: 35%;">
+                    
+                        </div>
                 </div>
             </div>
         </div>
