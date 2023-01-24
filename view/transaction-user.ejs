@@ -118,7 +118,11 @@
                                        Rp.<%= total %>  
                                     </td>
                                     <td class="shoping__cart__total">
+                                        <% if(data[i].status_making == false){ %>
                                        <span class="text-warning">Proses</span>
+                                       <% }else{ %>
+                                        <span class="text-success">Selesai</span>
+                                        <% }%>
                                     </td>
                                 </tr>
                                 <% } } %>

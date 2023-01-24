@@ -197,6 +197,12 @@ route.get('/transaction', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
+        client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+        INNER JOIN  product p ON t.product_id = p.id 
+        INNER JOIN users s ON t.user_id = s.id
+        WHERE t.status_transaction = ${true} `, (err, result) => {
+            const data = result.rows;
+            console.log(data);
         client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
             if (!err) {
                 const role = result.rows[0].name;
@@ -205,11 +211,13 @@ route.get('/transaction', (req, res) => {
                 }
                 if (role == 'admin') {
                     res.render('transaction', {
-                        title: 'Padang Juara | Transaction'
+                        title: 'Padang Juara | Transaction',
+                        data: data 
                     })
                 }
             }
         });
+    });
     }
 
 });
@@ -219,7 +227,7 @@ route.get('/transaction/user', (req, res) => {
     } else {
         client.query(`SELECT * FROM users WHERE email = '${req.session.email}'`, (err, result) => {
             const user = result.rows[0]
-        client.query(`select  t.id ,  t.user_id, t.total , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+          client.query(`select  t.id ,  t.user_id, t.total , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
                         INNER JOIN  product p ON t.product_id = p.id 
                         INNER JOIN users s ON t.user_id = s.id
                         WHERE t.status_transaction = ${true} AND  s.email = '${req.session.email}'`, (err, result) => {
@@ -327,7 +335,7 @@ route.post('/transaction/add/user', (req, res) => {
             );
             client.query(`INSERT INTO transaction
                             (user_id, product_id, tanggal_transaction,status_transaction, total, jumlah)
-                            VALUES (${Userid}, ${id}, '${current_date}', ${false}, ${total}, ${jumlah})`, (err, result) => {
+                             VALUES (${Userid}, ${id}, '${current_date}', ${false}, ${total}, ${jumlah})`, (err, result) => {
                 if (!err) {
                     console.log("success");
                     res.redirect('/')
@@ -343,11 +351,23 @@ route.post('/transaction/add/user', (req, res) => {
 
 // contact
 route.get('/contact', (req, res) => {
-    res.render('contact', {
-        title: 'Padang Juara | Contact',
-        email: req.session.email,
-        user: null
-    })
+    if ( req.session.eamil == null ) {
+        client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
+            res.render('contact', {
+                title: 'Padang Juara | Contact',
+                email: req.session.email,
+                user: 'login'
+            })
+        });
+    }else{
+    client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
+        res.render('contact', {
+            title: 'Padang Juara | Contact',
+            email: req.session.email,
+            user: result.rows[0].name 
+        })
+    });
+}
 });
 
 

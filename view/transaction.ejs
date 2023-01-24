@@ -34,23 +34,83 @@
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>City</th>
+                                        <th>Custumer</th>
+                                        <th>Product</th>
+                                        <th>Jumlah</th>
+                                        <th>Pirce</th>
+                                        <th>Total Harga</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <% var no = 1; %> 
+                                    <% if(data.length){ for(var i = 0; i< data.length; i++) {%> 
                                     <tr>
-                                        <td>Graiden</td>
-                                        <td>vehicula.aliquet@semconsequat.co.uk</td>
-                                        <td>076 4820 8838</td>
-                                        <td>Offenburg</td>
+                                        <td><%= data[i].name %> </td>
+                                        <td><%= data[i].nama_product %> </td>
+                                        <td><%= data[i].jumlah %> </td>
+                                        <%   var  bilangan = data[i].harga_product ;
+                                        if (bilangan.toString() != null) {     
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                                total += separator + ribuan.join('.');
+                                        } 
+                                        }else{
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                          }      total += separator + ribuan.join('.');
+                                        }
+                                    %> 
+                                        <td>Rp <%= total %> </td>
+                                        <%   var  bilangan = data[i].harga_product * data[i].jumlah ;
+                                        if (bilangan.toString() != null) {     
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                                total += separator + ribuan.join('.');
+                                        } 
+                                        }else{
+                                            var	number_string = bilangan.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                total   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                          }      total += separator + ribuan.join('.');
+                                        }
+                                    %> 
+                                      <td>Rp<%= total %> </td>
                                         <td>
-                                            <span class="badge bg-success">Active</span>
+                                            <% if(data[i].status_making == 0){ %> 
+                                            <span class="text-warning">Proses</span>
+                                            <% }else{ %> 
+                                                <span class="text-success">Selesai</span>
+                                                <% } %> 
+                                        </td>
+                                        <td>
+                                            
+                                                <button type="button" class="btn btn-outline-danger"><i onclick="deleted('<%=  data[i].id %>')" class="fa-solid fa-trash"></i></button>    
+                                                </i><a href="/product/form/update/<%=  data[i].id %> %> " class="btn btn-outline-success"><i class="fa-solid fa-pen"></i></a>
+                                            
                                         </td>
                                     </tr>
+                                    <% } } %> 
                              </table>
                         </div>
                     </div>
