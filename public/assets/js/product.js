@@ -29,6 +29,22 @@ const deletedUser = (id) => {
       }
     });
 }
+
+const deletedTransaction = (id) => {
+  swal({
+      title: "Apakah anda yakin?",
+      text: "data transaction ini akan di hapus secara permanen!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+         window.location.href = '/transaction/delete/'.concat(id)
+      }
+    });
+}
+
 const detail = (params) => {
   $.ajax({
     type: "get",

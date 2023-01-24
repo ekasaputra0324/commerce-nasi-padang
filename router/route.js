@@ -197,50 +197,109 @@ route.get('/transaction', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
-        client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+        client.query('SELECT * FROM product', (err, result) => {
+            const product = result.rows;
+            client.query(`SELECT * FROM users WHERE role_id = ${2}`, (err, result) => {
+                const users = result.rows;
+                client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
         INNER JOIN  product p ON t.product_id = p.id 
         INNER JOIN users s ON t.user_id = s.id
         WHERE t.status_transaction = ${true} `, (err, result) => {
-            const data = result.rows;
-            console.log(data);
-        client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
-            if (!err) {
-                const role = result.rows[0].name;
-                if (role == 'user') {
-                    res.redirect('/')
-                }
-                if (role == 'admin') {
-                    res.render('transaction', {
-                        title: 'Padang Juara | Transaction',
-                        data: data 
-                    })
-                }
-            }
-        });
-    });
+                    const data = result.rows;
+                    console.log(data);
+                    client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
+                        if (!err) {
+                            const role = result.rows[0].name;
+                            if (role == 'user') {
+                                res.redirect('/')
+                            }
+                            if (role == 'admin') {
+                                const success = req.query.success;
+                                res.render('transaction', {
+                                    title: 'Padang Juara | Transaction',
+                                    data: data,
+                                    product: product,
+                                    users: users,
+                                    msg: success
+                                })
+                            }
+                        }
+                    });
+                });
+            });
+        })
     }
 
 });
+route.post('/transaction/admin/add', (req, res) => {
+    const {
+        nama_pelangan,
+        nama_produk,
+        jumlah_produk
+    } = req.body;
+    console.log(
+        nama_pelangan, 
+        nama_produk,
+        jumlah_produk
+    );
+    var date = new Date();
+    var current_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      
+    client.query(`SELECT harga_product FROM product WHERE id = ${nama_produk}`, (err, result) => {
+        const harga = result.rows[0].harga_product; 
+        const jumlah = parseInt(jumlah_produk)
+        console.log(harga);
+        const total = harga * jumlah;
+        console.log(total);
+        client.query(`INSERT INTO transaction
+                    (user_id, product_id, tanggal_transaction,status_transaction, total, jumlah)
+                     VALUES (${nama_pelangan}, ${nama_produk}, '${current_date}', ${true}, ${total}, ${jumlah})`, (err, result) => {
+            if (!err) {
+                const success = encodeURIComponent(1);
+                res.redirect('/transaction/?success=' + success)
+            }
+            if (err) {
+                const success = encodeURIComponent(0);
+                res.redirect('/transaction/?success=' + success)
+            }
+        });
+    });
+
+})
+
+route.get('/transaction/delete/:id' , (req, res) => {
+    const id = req.params.id;
+    client.query(`DELETE FROM transaction WHERE id = ${id}`, (err, result) => {
+        if (!err) {
+            const success = encodeURIComponent(2);
+            res.redirect('/transaction/?success=' + success)
+        }
+        if (err) {
+           console.log(err);
+        } 
+    });
+});
+
 route.get('/transaction/user', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
         client.query(`SELECT * FROM users WHERE email = '${req.session.email}'`, (err, result) => {
             const user = result.rows[0]
-          client.query(`select  t.id ,  t.user_id, t.total , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+            client.query(`select  t.id ,  t.user_id, t.total , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
                         INNER JOIN  product p ON t.product_id = p.id 
                         INNER JOIN users s ON t.user_id = s.id
                         WHERE t.status_transaction = ${true} AND  s.email = '${req.session.email}'`, (err, result) => {
 
-            const data = result.rows
-            res.render('transaction-user', {
-                title: 'Padang Juara | Transaction',
-                data: data,
-                user: user,
-                email: req.session.email,
+                const data = result.rows
+                res.render('transaction-user', {
+                    title: 'Padang Juara | Transaction',
+                    data: data,
+                    user: user,
+                    email: req.session.email,
+                });
             });
-        });
-    })
+        })
     }
 });
 // cart
@@ -351,7 +410,7 @@ route.post('/transaction/add/user', (req, res) => {
 
 // contact
 route.get('/contact', (req, res) => {
-    if ( req.session.eamil == null ) {
+    if (req.session.eamil == null) {
         client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
             res.render('contact', {
                 title: 'Padang Juara | Contact',
@@ -359,15 +418,15 @@ route.get('/contact', (req, res) => {
                 user: 'login'
             })
         });
-    }else{
-    client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
-        res.render('contact', {
-            title: 'Padang Juara | Contact',
-            email: req.session.email,
-            user: result.rows[0].name 
-        })
-    });
-}
+    } else {
+        client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
+            res.render('contact', {
+                title: 'Padang Juara | Contact',
+                email: req.session.email,
+                user: result.rows[0].name
+            })
+        });
+    }
 });
 
 
