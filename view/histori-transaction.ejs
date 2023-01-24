@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 <%- include('admin/head') %>
 <div id="app">
     <%- include('admin/sidebar') %>
@@ -26,82 +35,10 @@
             </div>
             <section class="section">
                 <div class="card">
-                    <% if(msg == 1) {%> 
-                        <div class="alert alert-success alert-dismissible show fade">
-                            Transaksi Berhasil di Tambahkan
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                        <% } %>
-                        <% if(msg == 2) {%> 
-                            <div class="alert alert-success alert-dismissible show fade">
-                                Transaksi Berhasil di Hapus
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                            <% } %>
-                            <% if(msg == 3) {%> 
-                                <div class="alert alert-success alert-dismissible show fade">
-                                    Silahkan cek di riwayat transaksi untuk melihat transaksi berhasil
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div>
-                                <% } %>
                     <div class="card-header">
-                        <button class="btn btn" data-bs-toggle="modal" data-bs-target="#default"
-                            style="background-color: #dbae33; color: white; font-weight: bold;">Tambah
-                            Transaksi</button>
-                            <a href="/transaction/histori" class="btn btn-primary" style="font-weight: bold;">Riwayat Transaksi</a>
+        
                     </div>
                     <!-- modal -->
-                    <div class="modal fade text-left" id="default" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="myModalLabel1">Tambah Transaksi</h5>
-                                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                        aria-label="Close">
-                                        <i data-feather="x"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="/transaction/admin/add" method="post">
-                                        <div class="mb-3">
-                                            <label for="nama_pelangan" class="form-label">Nama Pelangan</label>
-                                            <select class="form-select" aria-label="Default select example"
-                                                name="nama_pelangan">
-                                                <% if(users.length){ for(var i = 0; i< users.length; i++) {%>
-                                                <option value="<%= users[i].id %> "><%= users[i].name %> </option>
-                                                <% } } %>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="nama_product" class="form-label">Nama Produk</label>
-                                            <select class="form-select" aria-label="Default select example"
-                                                name="nama_produk">
-                                                <% if(product.length){ for(var i = 0; i< product.length; i++) {%>
-                                                    <option value="<%= product[i].id %> "><%= product[i].nama_product %> </option>
-                                                    <% } } %>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="jumlah_produk" class="form-label">Jumlah Produk</label>
-                                            <input type="text" class="form-control" id="jumlah_produk"
-                                                placeholder="Jumlah Produk" name="jumlah_produk">
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn ml-1"
-                                        style="background-color: #dbae33; color: white; ">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Tambah</span>
-                                    </button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- end modal -->
                     <div class="card-body">
                         <table class="table table-striped" id="table1">
@@ -177,7 +114,9 @@
                                         <% } %>
                                     </td>
                                     <td>
-                                       <button type="button" class="btn btn-outline-warning" onclick="status('<%= data[i].id %>')"><i class="fa-solid fa-check"></i></button>
+                                        <button type="button" class="btn btn-outline-danger"><i
+                                            onclick="deletedTransaction('<%=  data[i].id %>')"
+                                            class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 <% } } %>
@@ -188,3 +127,10 @@
             </section>
         </div>
         <%- include('admin/footer') %>
+
+
+
+
+
+
+

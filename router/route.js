@@ -204,7 +204,7 @@ route.get('/transaction', (req, res) => {
                 client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
         INNER JOIN  product p ON t.product_id = p.id 
         INNER JOIN users s ON t.user_id = s.id
-        WHERE t.status_transaction = ${true} `, (err, result) => {
+        WHERE t.status_transaction = ${true}  AND status_making = ${false}`, (err, result) => {
                     const data = result.rows;
                     console.log(data);
                     client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
@@ -278,6 +278,51 @@ route.get('/transaction/delete/:id' , (req, res) => {
            console.log(err);
         } 
     });
+});
+
+route.get('/transaction/status/making/:id', (req, res) => {
+    const id = req.params.id;
+    client.query(`UPDATE transaction SET status_making = ${true} WHERE id = ${id}`, (err, result) => {
+        if(!err){
+            const success = encodeURIComponent(3);
+            res.redirect('/transaction/?success='+success)
+        }else{
+            res.send(err)
+        }
+    });
+});
+route.get('/transaction/histori', (req, res) => {
+    if (req.session.email == null) {
+        res.redirect('/')
+    } else {
+        client.query('SELECT * FROM product', (err, result) => {
+            const product = result.rows;
+            client.query(`SELECT * FROM users WHERE role_id = ${2}`, (err, result) => {
+                const users = result.rows;
+                client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+                    INNER JOIN  product p ON t.product_id = p.id 
+                    INNER JOIN users s ON t.user_id = s.id
+                    WHERE t.status_transaction = ${true} AND status_making = ${true}`, (err, result) => {
+                    const data = result.rows;
+                    console.log(data);
+                    client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
+                        if (!err) {
+                            const role = result.rows[0].name;
+                            if (role == 'user') {
+                                res.redirect('/')
+                            }
+                            if (role == 'admin') {
+                                res.render('histori-transaction', {
+                                    title: 'Padang Juara | Histori Transaksi',
+                                    data: data,
+                                })
+                            }
+                        }
+                    });
+                });
+            });
+        })
+    }
 });
 
 route.get('/transaction/user', (req, res) => {

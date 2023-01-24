@@ -56,3 +56,19 @@ const detail = (params) => {
     }
   });
 }
+
+
+const status = (id) => {
+  swal({
+    title: "Apakah anda yakin?",
+    text: "pastikan makanan dan pembayaran sudah selesai",
+    icon: "info",
+    buttons: true,
+    // dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+       window.location.href = '/transaction/status/making/'.concat(id)
+    }
+  });
+}
