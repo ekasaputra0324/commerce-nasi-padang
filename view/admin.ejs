@@ -21,12 +21,12 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="stats-icon " style="  background-color: #dbae33;">
-                                                    <i class="iconly-boldShow"></i>
+                                                    <i class="fa-solid fa-cart-shopping"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Profile Views</h6>
-                                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                                <h6 class="text-muted font-semibold">Transaksi</h6>
+                                                <h6 class="font-extrabold mb-0"><%= countTran %> </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -42,8 +42,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                                <h6 class="text-muted font-semibold">Pelangan</h6>
+                                                <h6 class="font-extrabold mb-0"><%= countUser %> </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -74,16 +74,47 @@
                                         <h4>Daftar Transaksi Terbaru</h4>
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-striped">
+                                        <table class=" table table-striped ">
                                             <thead>
 
                                                 <tr>
                                                  <td>Pelanggan</td>
                                                  <td>Nama Produk</td>
-                                                 <td>Tanggal Pemesanan</td>
+                                                 <td>Jumlah</td>
                                                  <td>Harga</td>
                                                 </tr>
                                             </thead>
+                                            <% if(data.length){ for(var i = 0; i< data.length; i++) {%>
+                                            <tbody>
+                                                <tr>
+                                                    <td><%= data[i].name %> </td>
+                                                    <td><%= data[i].nama_product %> </td>
+                                                    <td><%= data[i].jumlah %> </td>
+                                                    <%   var  bilangan = data[i].harga_product ;
+                                                        if (bilangan.toString() != null) {     
+                                                            var	number_string = bilangan.toString(),
+                                                                sisa 	= number_string.length % 3,
+                                                                total   = number_string.substr(0, sisa),
+                                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                                    
+                                                            if (ribuan) {
+                                                                separator = sisa ? '.' : '';
+                                                                total += separator + ribuan.join('.');
+                                                        } 
+                                                        }else{
+                                                            var	number_string = bilangan.toString(),
+                                                                sisa 	= number_string.length % 3,
+                                                                total   = number_string.substr(0, sisa),
+                                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                                    
+                                                            if (ribuan) {
+                                                                separator = sisa ? '.' : '';
+                                                          }      total += separator + ribuan.join('.');
+                                                        }
+                                                    %>
+                                                    <td>Rp <%= total %> </td>
+                                            </tbody>
+                                            <% } } %>
                                           </table>
                                     </div>
                                 </div>

@@ -109,7 +109,16 @@ route.post('/auth', (req, res) => {
                 if (!err) {
                     const role = result.rows[0].name;
                     if (role == 'user') {
-                        res.redirect('/')
+                        var date = new Date();
+                        var current_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                        client.query(`UPDATE users SET tanggal_login = '${current_date}' WHERE email = '${req.session.email}'`, (err, result) => {
+                            if (!err) {
+                                res.redirect('/')
+                            }
+                            if (err) {
+                                console.log(err);
+                            }
+                        })
                     } else if (role == 'admin') {
                         res.redirect('/home/admin')
                     }
@@ -165,31 +174,46 @@ route.get('/home/admin', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
-        client.query(`SELECT * FROM users WHERE role_id = '${2}' FETCH FIRST 3 ROW ONLY`, (err, result) => {
-            const custumer = result.rows;
-            console.log(custumer);
-            client.query('SELECT * FROM product', (err, result) => {
-                const ProductCount = result.rowCount;
-                client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
-                    if (!err) {
-                        const role = result.rows[0].name;
-                        if (role == 'user') {
-                            res.redirect('/home/users')
-                        }
-                        if (role == 'admin') {
-                            const users = result.rows[0]
-                            res.render("admin", {
-                                title: 'Padang Juara | Dashboard',
-                                user: users,
-                                dataUsers: custumer,
-                                CountProduct: ProductCount,
-                                email: req.session.email
-                            })
-                        }
-                    }
-                });
-            });
-        });
+        client.query(`select  t.id ,  t.user_id, t.total , t.status_making , s.name, p.nama_product, p.harga_product,p.img, t.jumlah from  transaction t 
+        INNER JOIN  product p ON t.product_id = p.id 
+        INNER JOIN users s ON t.user_id = s.id
+        WHERE t.status_transaction = ${true}  AND status_making = ${false}  LIMIT ${5}`, (err, result) => {
+            const dataTransaction = result.rows;
+            client.query(`SELECT * FROM users WHERE role_id = ${2}`, (err, result) => {
+                const countUser = result.rowCount;
+                client.query(`SELECT * FROM transaction WHERE status_transaction = ${true} AND status_making = ${false}`, (err, result) => {
+                    const countTransaction = result.rowCount;
+                    client.query(`SELECT * FROM users WHERE role_id = '${2}' FETCH FIRST 3 ROW ONLY`, (err, result) => {
+                        const custumer = result.rows;
+                        console.log(custumer);
+                        client.query('SELECT * FROM product', (err, result) => {
+                            const ProductCount = result.rowCount;
+                            client.query(`select role.name from  users JOIN role ON users.role_id = role.id WHERE users.email = '${req.session.email}'`, (err, result) => {
+                                if (!err) {
+                                    const role = result.rows[0].name;
+                                    if (role == 'user') {
+                                        res.redirect('/home/users')
+                                    }
+                                    if (role == 'admin') {
+                                        const users = result.rows[0]
+                                        res.render("admin", {
+                                            title: 'Padang Juara | Dashboard',
+                                            user: users,
+                                            dataUsers: custumer,
+                                            countUser: countUser,
+                                            data: dataTransaction,
+                                            countTran: countTransaction,
+                                            CountProduct: ProductCount,
+                                            email: req.session.email
+                                        })
+                                    }
+                                }
+                            });
+                        });
+                    });
+                })
+            })
+        })
     }
 });
 // transaction
@@ -238,15 +262,15 @@ route.post('/transaction/admin/add', (req, res) => {
         jumlah_produk
     } = req.body;
     console.log(
-        nama_pelangan, 
+        nama_pelangan,
         nama_produk,
         jumlah_produk
     );
     var date = new Date();
     var current_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-      
+
     client.query(`SELECT harga_product FROM product WHERE id = ${nama_produk}`, (err, result) => {
-        const harga = result.rows[0].harga_product; 
+        const harga = result.rows[0].harga_product;
         const jumlah = parseInt(jumlah_produk)
         console.log(harga);
         const total = harga * jumlah;
@@ -271,13 +295,16 @@ route.get('/role', (req, res) => {
     if (req.session.email == null) {
         res.redirect('/')
     } else {
-    client.query(`SELECT * FROM role` , (err, result) => {
-        res.render('role', {title: 'Padang Juara | Role', data: result.rows});
-    });
+        client.query(`SELECT * FROM role`, (err, result) => {
+            res.render('role', {
+                title: 'Padang Juara | Role',
+                data: result.rows
+            });
+        });
     }
 });
 
-route.get('/transaction/delete/:id' , (req, res) => {
+route.get('/transaction/delete/:id', (req, res) => {
     const id = req.params.id;
     client.query(`DELETE FROM transaction WHERE id = ${id}`, (err, result) => {
         if (!err) {
@@ -285,18 +312,18 @@ route.get('/transaction/delete/:id' , (req, res) => {
             res.redirect('/transaction/?success=' + success)
         }
         if (err) {
-           console.log(err);
-        } 
+            console.log(err);
+        }
     });
 });
 
 route.get('/transaction/status/making/:id', (req, res) => {
     const id = req.params.id;
     client.query(`UPDATE transaction SET status_making = ${true} WHERE id = ${id}`, (err, result) => {
-        if(!err){
+        if (!err) {
             const success = encodeURIComponent(3);
-            res.redirect('/transaction/?success='+success)
-        }else{
+            res.redirect('/transaction/?success=' + success)
+        } else {
             res.send(err)
         }
     });

@@ -7,7 +7,6 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-
             <div class="page-heading">
                 <div class="page-title">
                     <div class="row">
@@ -37,6 +36,7 @@
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                       <th>Terakhir login</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,6 +46,10 @@
                                         <td><%= no %> </td>
                                         <td><%= data[i].name %> </td>
                                         <td><%= data[i].email %> </td>
+                                        <td><%= data[i].tanggal_login %></td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline-danger"><i onclick="deletedUser('<%=  data[i].id %>')" class="fa-solid fa-trash"></i></button>
+                                        </td>
                                     </tr>
                                     <% no++; %> 
                                     <% } }else{ %>
@@ -58,7 +62,6 @@
                              </table>
                         </div>
                     </div>
-
                 </section>
             </div>
  <%- include('admin/footer') %> 
