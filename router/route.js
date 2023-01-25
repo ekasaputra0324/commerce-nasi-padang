@@ -265,7 +265,17 @@ route.post('/transaction/admin/add', (req, res) => {
         });
     });
 
-})
+});
+
+route.get('/role', (req, res) => {
+    if (req.session.email == null) {
+        res.redirect('/')
+    } else {
+    client.query(`SELECT * FROM role` , (err, result) => {
+        res.render('role', {title: 'Padang Juara | Role', data: result.rows});
+    });
+    }
+});
 
 route.get('/transaction/delete/:id' , (req, res) => {
     const id = req.params.id;

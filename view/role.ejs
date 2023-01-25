@@ -12,14 +12,14 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Pelanggan</h3>
-                            <p class="text-subtitle text-muted">Daftar Data Pelanggan</p>
+                            <h3>Role</h3>
+                            <p class="text-subtitle text-muted">Daftar Role</p>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Pelanggan</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Role</li>
                                 </ol>
                             </nav>
                         </div>
@@ -27,16 +27,13 @@
                 </div>
                 <section class="section">
                     <div class="card">
-                        <div class="card-header">
-                              <a href="/custumer/form/add"><button class="btn btn" style="background-color: #dbae33; color: white; font-weight: bold;">Tambah Pelangan </button></a>
-                        </div>
                         <div class="card-body">
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
+                                        <th>Role Name</th>
+                                        <th>Guard Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,7 +42,7 @@
                                     <tr>
                                         <td><%= no %> </td>
                                         <td><%= data[i].name %> </td>
-                                        <td><%= data[i].email %> </td>
+                                        <td>Web</td>
                                     </tr>
                                     <% no++; %> 
                                     <% } }else{ %>
