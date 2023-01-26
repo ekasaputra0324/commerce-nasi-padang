@@ -18,7 +18,7 @@ const deleted = (id) => {
 const deletedUser = (id) => {
   swal({
       title: "Apakah anda yakin?",
-      text: "data custumers ini akan di hapus secara permanen!",
+      text: "data custumers ini akan di hapus secara permanen berserta riwayat transaksi!",
       icon: "warning",
       buttons: true,
       dangerMode: true,

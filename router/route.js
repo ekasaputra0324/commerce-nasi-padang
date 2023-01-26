@@ -773,7 +773,7 @@ route.post('/custemer/add', (req, res) => {
 });
 route.get('/custumer/delete/:id', (req, res) => {
     const id = req.params.id;
-
+    client.query(`DELETE FROM transaction WHERE user_id = ${id}`, (err, result) => {  
     client.query(`DELETE FROM users WHERE id = ${id}`, (err, result) => {
         if (err) {
             console.log(err)
@@ -784,6 +784,7 @@ route.get('/custumer/delete/:id', (req, res) => {
         }
 
     });
+  })
 });
 route.get('/customer/form/update/:id', (req, res) => {
     const id = req.params.id;
