@@ -757,11 +757,14 @@ route.post('/custemer/add', (req, res) => {
             res.render('from-add-custumer', {
                 title: 'Padang Juara | Custumers',
                 msg: 0
-            })
+            });
         } else {
             let hash = bcrypt.hashSync(password, 10);
             console.log(hash);
             client.query(`INSERT INTO users(name , email, password) VALUES ('${name}','${email}','${hash}') `, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
                 if (!err) {
                     console.log(result.rows[0]);
                     const msg = encodeURIComponent(1);
