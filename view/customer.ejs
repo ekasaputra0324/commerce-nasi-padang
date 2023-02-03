@@ -1,6 +1,29 @@
 <%- include('admin/head') %> 
     <div id="app">
        <%- include('admin/sidebar') %> 
+       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Tambah saldo</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+             <form action="/custumer/saldo" method="post">
+                <div class="form-group">
+                  <label for="saldo">Jumlah</label>
+                  <input type="hidden" name="id" id="id">
+                  <input type="text" class="form-control" id="saldo" name="saldo">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-warning">Tambah</button>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
         <div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
@@ -36,7 +59,8 @@
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                       <th>Terakhir login</th>
+                                        <th>Saldo</th>
+                                        <th>Terakhir login</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -46,11 +70,43 @@
                                         <td><%= no %> </td>
                                         <td><%= data[i].name %> </td>
                                         <td><%= data[i].email %> </td>
+                                        <% 
+                                        var saldo = data[i].saldo;
+                                        
+                                        if ( saldo == null) {
+                                                saldo = 0
+                                        }else{
+                                            saldo = data[i].saldo;
+                                            if (saldo.toString() != null) {     
+                                            var	number_string = saldo.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                saldo   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                                saldo += separator + ribuan.join('.');
+                                        } 
+                                        }else{
+                                            var	number_string = saldo.toString(),
+                                                sisa 	= number_string.length % 3,
+                                                saldo   = number_string.substr(0, sisa),
+                                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
+                                                    
+                                            if (ribuan) {
+                                                separator = sisa ? '.' : '';
+                                          }      saldo += separator + ribuan.join('.');
+                                        }
+                                        }
+                                        %> 
+                                        <td>Rp.<%= saldo %> </td>
                                         <td><%= data[i].tanggal_login %></td>
                                         <td>
                                             <button type="button" class="btn btn-outline-danger"><i onclick="deletedUser('<%=  data[i].id %>')" class="fa-solid fa-trash"></i></button>
+                                            <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getData('<%= data[i].id %>')"><i class="fa-solid fa-money-check-dollar"></i></button>
                                         </td>
                                     </tr>
+                                    <!-- Button trigger modal -->
                                     <% no++; %> 
                                     <% } }else{ %>
                                         <tr>

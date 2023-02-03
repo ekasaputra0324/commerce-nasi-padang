@@ -72,3 +72,17 @@ const status = (id) => {
     }
   });
 }
+
+const getData = (id) => {
+  $.ajax({
+    type: "get",
+    url: "/custemer/getdata/".concat(id), 
+    dataType: "json",
+      success: function (response) {
+        console.log(response.saldo);
+      $('#id').val(response.id);
+      $('#saldo').val(response.saldo);
+      // $('#image_product').attr("src", "/images/".concat(response.img))
+    }
+  });
+}

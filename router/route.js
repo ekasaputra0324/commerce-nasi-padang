@@ -158,7 +158,7 @@ route.get('/', (req, res) => {
                                 email: req.session.email,
                                 user: users,
                                 countData: result.rowCount,
-                                count: result3.rows[0].sum,
+                                count: result1.rows[0].saldo,
                                 data: result2.rows,
                                 title: 'Padang Juara | Home'
                             });
@@ -394,7 +394,7 @@ route.get('/cart', (req, res) => {
                 INNER JOIN users s ON t.user_id = s.id
                 WHERE t.status_transaction = ${false} AND  s.email = '${req.session.email}'`, (err, result) => {
         if (err) {
-            console.log(err);
+            console.log(err); 
         }
         if (!err) {
             const data = result.rows
@@ -404,11 +404,11 @@ route.get('/cart', (req, res) => {
                 client.query(`SELECT SUM(total) FROM transaction WHERE user_id = ${result.rows[0].id} AND status_transaction = ${false}`, (err, result) => {
                     const msg = req.query.success;
                     res.render('cart', {
-                        title: 'Padang Juara | Cart',
+                        title: 'Padang Juara | Cart', 
                         data: data,
                         msg: msg,
                         subs: result.rows[0].sum,
-                        email: req.session.email,
+                        email: users.email,
                         user: users,
                         count: count
                     });
@@ -417,20 +417,35 @@ route.get('/cart', (req, res) => {
         }
     })
 });
+ 
 
 route.get('/cart/update', (req, res) => {
-    // const { user_id }  = req.body;
+    
     client.query(`SELECT * FROM users WHERE email = '${req.session.email}'`, (err, result) => {
         const user_id = result.rows[0].id
-        client.query(`UPDATE transaction SET status_transaction = ${true} WHERE user_id = '${user_id}'`, (err, result) => {
-            if (err) {
-                console.log(err);
+        const saldo = result.rows[0].saldo
+        client.query(`SELECT SUM(total) FROM transaction WHERE user_id = ${result.rows[0].id} AND status_transaction = ${false}`, (err, result) => {
+            console.log(result);
+            if (result.rows[0].sum === null) {  
+                const msg = encodeURIComponent(0)
+                res.redirect('/cart/?success=' + msg);
             }
-            if (!err) {
-                const success = encodeURIComponent(1);
-                res.redirect('/cart/?success=' + success)
+            if (result.rows[0].sum > saldo) {
+                const msg = encodeURIComponent(1)
+                res.redirect('/cart/?success=' + msg);
             }
-        });
+            var total = saldo - result.rows[0].sum
+            client.query(`UPDATE transaction SET status_transaction = ${true} WHERE user_id = '${user_id}'`, (err, result) => {
+                client.query(`UPDATE users SET saldo = ${total} WHERE id = ${user_id}`, (err, result) => {
+                if (err) {
+                    console.log(err);
+                }
+                if (!err) {
+                    res.redirect('/cart')
+                }
+            });
+        })
+    })
     })
 });
 
@@ -728,6 +743,37 @@ route.get('/custumer/form/add', (req, res) => {
             msg: msg
         })
     }
+});
+
+route.post('/custumer/saldo', function (req, res) {
+    const id = req.body.id;
+    const saldo = req.body.saldo;
+    console.log(
+        id,
+        saldo
+    );
+    client.query(`UPDATE users SET saldo = ${saldo} WHERE id = ${id}`, (err, result) => {
+        if (!err) {
+            // const msg = encodeURIComponent(1);
+            res.redirect('/custumer')
+        }
+        if (err) {
+            console.log(err);
+            // const msg = encodeURIComponent(0);
+            res.redirect('/custumer')
+        }
+    });
+});
+
+route.get('/custemer/getdata/:id', (req, res) =>{
+    client.query(`SELECT * FROM users WHERE id= ${req.params.id}`, (err, result) =>{
+        if (!err) {
+            res.send(result.rows[0]);
+        }
+        if (err) {
+            console.log(err);
+        }
+    });
 });
 
 route.post('/custemer/add', (req, res) => {

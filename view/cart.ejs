@@ -2,10 +2,21 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
+
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
+                    <% if(msg == 1) {%> 
+                        <div class="alert alert-danger alert-dismissible show fade">
+                            Saldo tidak mencukupi
+                        </div>
+                        <% } %>
+                        <% if(msg == 0) {%> 
+                            <div class="alert alert-warning alert-dismissible show fade">
+                                Harap tambahkan barang
+                            </div>
+                   <% } %> 
                     <!-- <div class="hero__categories">
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
