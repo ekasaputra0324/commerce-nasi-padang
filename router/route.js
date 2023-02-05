@@ -730,7 +730,7 @@ route.get('/custumer', (req, res) => {
             res.render('customer', {
                 title: 'PS Store | Custumers',
                 data: data,
-                msg: msg
+                msg: msg 
             })
         })
     }
