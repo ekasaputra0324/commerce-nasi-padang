@@ -38,7 +38,7 @@ const upload = multer({
 route.get('/resgiter', (req, res) => {
     const register = req.query.register;
     res.render('register', {
-        title: 'Padang Juara | Register',
+        title: 'PS Store | Register',
         message: register
     })
 });
@@ -92,7 +92,7 @@ route.get('/login', (req, res) => {
     }
     const login = []
     res.render('login', {
-        title: 'Padang Juara | Login',
+        title: 'PS Store | Login',
         message: login
     });
 });
@@ -128,7 +128,7 @@ route.post('/auth', (req, res) => {
             req.session.destroy();
             const login = 'failed'
             res.render("login", {
-                title: 'Padang Juara | Login',
+                title: 'PS Store | Login',
                 message: login
             });
         }
@@ -142,7 +142,7 @@ route.get('/', (req, res) => {
                 email: null,
                 user: null,
                 data: result.rows,
-                title: 'Padang Juara | Home'
+                title: 'PS Store | Home'
             });
         })
     } else {
@@ -160,7 +160,7 @@ route.get('/', (req, res) => {
                                 countData: result.rowCount,
                                 count: result1.rows[0].saldo,
                                 data: result2.rows,
-                                title: 'Padang Juara | Home'
+                                title: 'PS Store | Home'
                             });
                         })
                     });
@@ -197,7 +197,7 @@ route.get('/home/admin', (req, res) => {
                                     if (role == 'admin') {
                                         const users = result.rows[0]
                                         res.render("admin", {
-                                            title: 'Padang Juara | Dashboard',
+                                            title: 'PS Store | Dashboard',
                                             user: users,
                                             dataUsers: custumer,
                                             countUser: countUser,
@@ -240,7 +240,7 @@ route.get('/transaction', (req, res) => {
                             if (role == 'admin') {
                                 const success = req.query.success;
                                 res.render('transaction', {
-                                    title: 'Padang Juara | Transaction',
+                                    title: 'PS Store | Transaction',
                                     data: data,
                                     product: product,
                                     users: users,
@@ -297,7 +297,7 @@ route.get('/role', (req, res) => {
     } else {
         client.query(`SELECT * FROM role`, (err, result) => {
             res.render('role', {
-                title: 'Padang Juara | Role',
+                title: 'PS Store | Role',
                 data: result.rows
             });
         });
@@ -350,7 +350,7 @@ route.get('/transaction/histori', (req, res) => {
                             }
                             if (role == 'admin') {
                                 res.render('histori-transaction', {
-                                    title: 'Padang Juara | Histori Transaksi',
+                                    title: 'PS Store | Histori Transaksi',
                                     data: data,
                                 })
                             }
@@ -375,7 +375,7 @@ route.get('/transaction/user', (req, res) => {
 
                 const data = result.rows
                 res.render('transaction-user', {
-                    title: 'Padang Juara | Transaction',
+                    title: 'PS Store | Transaction',
                     data: data,
                     user: user,
                     email: req.session.email,
@@ -404,7 +404,7 @@ route.get('/cart', (req, res) => {
                 client.query(`SELECT SUM(total) FROM transaction WHERE user_id = ${result.rows[0].id} AND status_transaction = ${false}`, (err, result) => {
                     const msg = req.query.success;
                     res.render('cart', {
-                        title: 'Padang Juara | Cart', 
+                        title: 'PS Store | Cart', 
                         data: data,
                         msg: msg,
                         subs: result.rows[0].sum,
@@ -512,7 +512,7 @@ route.get('/contact', (req, res) => {
     if (req.session.eamil == null) {
         client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
             res.render('contact', {
-                title: 'Padang Juara | Contact',
+                title: 'PS Store | Contact',
                 email: req.session.email,
                 user: 'login'
             })
@@ -520,7 +520,7 @@ route.get('/contact', (req, res) => {
     } else {
         client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
             res.render('contact', {
-                title: 'Padang Juara | Contact',
+                title: 'PS Store | Contact',
                 email: req.session.email,
                 user: result.rows[0].name
             })
@@ -550,7 +550,7 @@ route.get('/product', (req, res) => {
                             console.log(result.rows);
                             const msg = req.query.success;
                             res.render('product', {
-                                title: 'Padang Juara | Product',
+                                title: 'PS Store | Product',
                                 data: result.rows,
                                 msg: msg
                             });
@@ -585,7 +585,7 @@ route.get('/product/form/update/:id', (req, res) => {
             if (!err) {
                 const msg = req.query.success;
                 res.render("form-update", {
-                    title: "Padang Juara | Form Update",
+                    title: "PS Store | Form Update",
                     data: result.rows[0],
                     msg: msg
                 });
@@ -660,7 +660,7 @@ route.get('/from', (req, res) => {
     } else {
         const msg = req.query.success;
         res.render('from', {
-            title: 'Padang Juara | Form',
+            title: 'PS Store | Form',
             msg: msg
         });
     }
@@ -728,7 +728,7 @@ route.get('/custumer', (req, res) => {
             const msg = req.query.success;
             console.log(msg);
             res.render('customer', {
-                title: 'Padang Juara | Custumers',
+                title: 'PS Store | Custumers',
                 data: data,
                 msg: msg
             })
@@ -741,7 +741,7 @@ route.get('/custumer/form/add', (req, res) => {
     } else {
         const msg = req.query.success;
         res.render('from-add-custumer', {
-            title: 'Padang Juara | Custumers',
+            title: 'PS Store | Custumers',
             msg: msg
         })
     }
@@ -793,7 +793,7 @@ route.post('/custemer/add', (req, res) => {
     );
     if (password != password2) {
         res.render('from-add-custumer', {
-            title: 'Padang Juara | Custumers',
+            title: 'PS Store | Custumers',
             msg: 0
         })
     }
@@ -803,7 +803,7 @@ route.post('/custemer/add', (req, res) => {
         }
         if (result.rowCount > 0) {
             res.render('from-add-custumer', {
-                title: 'Padang Juara | Custumers',
+                title: 'PS Store | Custumers',
                 msg: 0
             });
         } else {
@@ -844,7 +844,7 @@ route.get('/customer/form/update/:id', (req, res) => {
             const msg = req.query.success;
             res.render('form-update-custumer', {
                 data: result.rows[0],
-                title: 'Padang Juara | Form Update',
+                title: 'PS Store | Form Update',
                 msg: msg
             })
         }
