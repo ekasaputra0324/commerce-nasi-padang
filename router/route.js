@@ -515,7 +515,7 @@ route.get('/contact', (req, res) => {
                 title: 'PS Store | Contact',
                 email: req.session.email,
                 user: 'login'
-            })
+            }) 
         });
     } else {
         client.query(`SELECT * FROM users WHERE email = '${req.session.eamil}'`, (err, result) => {
