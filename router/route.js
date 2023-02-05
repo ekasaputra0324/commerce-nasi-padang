@@ -433,18 +433,20 @@ route.get('/cart/update', (req, res) => {
             if (result.rows[0].sum > saldo) {
                 const msg = encodeURIComponent(1)
                 res.redirect('/cart/?success=' + msg);
+            }else{
+
+                var total = saldo - result.rows[0].sum
+                client.query(`UPDATE transaction SET status_transaction = ${true} WHERE user_id = '${user_id}'`, (err, result) => {
+                    client.query(`UPDATE users SET saldo = ${total} WHERE id = ${user_id}`, (err, result) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    if (!err) {
+                        res.redirect('/cart')
+                    }
+                });
+            })
             }
-            var total = saldo - result.rows[0].sum
-            client.query(`UPDATE transaction SET status_transaction = ${true} WHERE user_id = '${user_id}'`, (err, result) => {
-                client.query(`UPDATE users SET saldo = ${total} WHERE id = ${user_id}`, (err, result) => {
-                if (err) {
-                    console.log(err);
-                }
-                if (!err) {
-                    res.redirect('/cart')
-                }
-            });
-        })
     })
     })
 });

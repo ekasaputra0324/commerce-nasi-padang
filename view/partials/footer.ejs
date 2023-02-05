@@ -63,6 +63,14 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/assets-users/js/main.js"></script>
 <script>
+    if (screen.width < 960) {
+        window.onloadedmetadata
+        $('.hero').hide();
+    }   
+    else {
+
+    // alert('More than 960');
+    }
     const getID = (id) =>{
         $.ajax({
             type: "GET",
