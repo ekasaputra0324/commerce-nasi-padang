@@ -207,13 +207,11 @@
             </div>
             <% if(email == null) {%>
                 <div class="humberger__open" style="border: none; display: flex;">
-                    <!-- <div class="header__top__right__auth"> -->
-                        <!-- </div> -->
                         <a href="/login" style=" color: black; font-weight: bold; font-size: 15px; margin-top: -15%;">Login</a> 
                     </div>
                     <% }else{ %>  
                         <div class="humberger__open" style="border: none; display: flex;">
-                        <a href="/login" style="font-weight: bold; font-size: 15px; margin-top: -20%; color: black;"><%= user.name %> </a> 
+                        <a href="/logout" style="font-weight: bold; font-size: 15px; margin-top: -15%; color: black;"><%= user.name %> </a> 
                     </div>
                 </div>
                 <% } %> 
